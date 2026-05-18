@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/actions-setup-python@v5
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
@@ -25,7 +25,7 @@ jobs:
 
     - name: Build with PyInstaller
       run: |
-        pyinstaller --windowed --onefile --add-data "logo_header.png:." your_script_name.py
+        pyinstaller --windowed --onefile --add-data "logo_header.png:." bMSerialmac.py
       # Note: Replace 'your_script_name.py' with the actual name of your file!
 
     - name: Upload Mac App Bundle
