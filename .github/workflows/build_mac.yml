@@ -1,0 +1,35 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [ main ] # Triggers whenever you push to the main branch
+  workflow_dispatch: # Allows you to trigger it manually
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/actions-setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyserial reportlab pillow pyinstaller
+
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --windowed --onefile --add-data "logo_header.png:." your_script_name.py
+      # Note: Replace 'your_script_name.py' with the actual name of your file!
+
+    - name: Upload Mac App Bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: bMSerial-macOS-App
+        path: dist/bMSerialmac.py.app
